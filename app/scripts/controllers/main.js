@@ -5,7 +5,8 @@ angular.module('p2sAppApp').controller('MainCtrl', ['$scope', 'uiGmapGoogleMapAp
 	$scope.options = { streetViewControl: false, panControl: false, maxZoom: 20, minZoom: 3};
 	var appleStyle = [{"featureType": "transit.station.rail", "stylers": [{"visibility": "off"}] }, {"featureType": "water", "elementType": "geometry", "stylers": [{"color": "#a2daf2"}] }, {"featureType": "landscape.man_made", "elementType": "geometry", "stylers": [{"color": "#f7f1df"}] }, {"featureType": "landscape.natural", "elementType": "geometry", "stylers": [{"color": "#d0e3b4"}] }, {"featureType": "landscape.natural.terrain", "elementType": "geometry", "stylers": [{"visibility": "off"}] }, {"featureType": "poi.park", "elementType": "geometry", "stylers": [{"color": "#bde6ab"}] }, {"featureType": "poi", "elementType": "labels", "stylers": [{"visibility": "off"}] }, {"featureType": "poi.medical", "elementType": "geometry", "stylers": [{"color": "#fbd3da"}] }, {"featureType": "poi.business", "stylers": [{"visibility": "off"}] }, {"featureType": "road", "elementType": "geometry.stroke", "stylers": [{"visibility": "off"}] }, {"featureType": "road", "elementType": "labels", "stylers": [{"visibility": "off"}] }, {"featureType": "road.highway", "elementType": "geometry.fill", "stylers": [{"color": "#ffe15f"}] }, {"featureType": "road.highway", "elementType": "geometry.stroke", "stylers": [{"color": "#efd151"}] }, {"featureType": "road.arterial", "elementType": "geometry.fill", "stylers": [{"color": "#ffffff"}] }, {"featureType": "road.local", "elementType": "geometry.fill", "stylers": [{"color": "black"}] }, {"featureType": "transit.station.airport", "elementType": "geometry.fill", "stylers": [{"color": "#cfb2db"}] }];
 	$scope.styles = appleStyle;
- $scope.hidden = false;
+ 	$scope.hidden = false;
+ 	$scope.infoPanelShow = false;
 	// GOOGLE API THEN
     GoogleMapApi.then(function(maps) {
 
@@ -16,28 +17,27 @@ angular.module('p2sAppApp').controller('MainCtrl', ['$scope', 'uiGmapGoogleMapAp
 		//     $scope.getDirection(map);
 		// });
 
-    	var latadrress = $scope.getLocation(maps, '135, boulevard de menilmontant 75011 paris');
 
-	    $scope.getCurrentPosition = function() {
-			$scope.posFake = new google.maps.LatLng(48.866625, 2.343695);
-			$scope.changePosition($scope.posFake);
-			$scope.addMarkerGeoloc($scope.posFake);
-	        if (navigator.geolocation) {
-	          navigator.geolocation.getCurrentPosition(function(position) {
-	            var pos = new maps.LatLng(position.coords.latitude, position.coords.longitude);         
-	          }, function() {
-	            handleNoGeolocation(true);
-	          });
-	        } else {
-	          // Browser doesn't support Geolocation
-	          handleNoGeolocation(false);
-	        }
-	    }
+
 
 	});
 	// END GOOGLE API THEN 
 
-
+	$scope.getCurrentPosition = function() {
+		$scope.posFake = new google.maps.LatLng(48.866625, 2.343695);
+		$scope.changePosition($scope.posFake);
+		$scope.addMarkerGeoloc($scope.posFake);
+	    // if (navigator.geolocation) {
+	    //   navigator.geolocation.getCurrentPosition(function(position) {
+	    //     var pos = new maps.LatLng(position.coords.latitude, position.coords.longitude);         
+	    //   }, function() {
+	    //     handleNoGeolocation(true);
+	    //   });
+	    // } else {
+	    //   // Browser doesn't support Geolocation
+	    //   handleNoGeolocation(false);
+	    // }
+	}
 
 	$scope.addMarkerGeoloc = function(pos) {
 		$scope.markers.push(new google.maps.Marker({
@@ -143,6 +143,8 @@ angular.module('p2sAppApp').controller('MainCtrl', ['$scope', 'uiGmapGoogleMapAp
       }
     }]
 
+
+  	//var latadrress = $scope.getLocation(maps, '135, boulevard de menilmontant 75011 paris');
     $scope.getLocation = function(maps, address) {
       console.log(address);
       geocoder = new maps.Geocoder();

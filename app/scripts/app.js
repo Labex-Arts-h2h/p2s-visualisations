@@ -5,6 +5,7 @@ angular
     'ngCookies',
     'ngResource',
     'ngSanitize',
+    'ngAnimate',
     'ui.router',
     'uiGmapgoogle-maps',
     'ui.map'

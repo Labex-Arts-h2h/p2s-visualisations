@@ -1,35 +1,31 @@
 <ui-gmap-google-map  center='map.center' zoom='map.zoom' control="map.control" options='options' styles="styles" events="events">
       <ui-gmap-markers models="markers" coords="'self'" icon="'icon'"  options="'options'" events="clickEventsObject">
-<!--           <ui-gmap-windows show="'showWindow'" closeClick="'closeClick'"  ng-cloak>
+<!--          <ui-gmap-windows show="'showWindow'" closeClick="'closeClick'"  ng-cloak>
               <div >
               <h4 ng-non-bindable>{{title}}</h4>
                   I should not be attached to a
                   marker.
-                  <p ng-non-bindable >This is an info window at {{ latitude | number:4 }}, {{ longitude | number:4 }}!</p>
+                  <p ng-non-bindable >This is an info window at {{ latitude | number:4 }}, {{ longitude | number:4 }}!
+<button ng-click='getDirection(markerInfo.position)'>Direction</button>
+                  </p>
 
                   <p class="muted">My marker will stay open when the window is popped up!</p>
+
+
               </div>
           </ui-gmap-windows> -->
       </ui-gmap-markers>
 </ui-gmap-google-map>
-  <div class="infoPanel" ng-show="infoPanelShow" ng-animate="'fade'">
+  <div class="infoPanel sample-show-hide" ng-show="infoPanelShow" >
     <h3>{{markerInfo.labelContent}}</h3>
     {{markerInfo.key}}
+            <button ng-click="infoPanelShow=false">Close</button>
+
     <button ng-click='getDirection(markerInfo.position)'>Direction</button>
   </div>
 <footer class="footer">
   <div class="container">
     <button ng-click="getCurrentPosition()">localisation</button>
-ee
-        <div ng-hide="hidden == true" ng-animate="'fade'">
-             <h1>Come and get it!</h1>
-
-        </div>
-        <button ng-click="hidden=true">I don't want it</button>
-        <button ng-click="hidden=false">I want it</button>
   </div>
-
-
-
 </footer>
 

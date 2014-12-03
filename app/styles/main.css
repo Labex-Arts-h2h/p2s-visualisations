@@ -13,14 +13,14 @@ body, html {
   position: absolute;
   top :80px;
   right: 10px;
-/*  -webkit-transition:top linear 1.5s;
-  transition:top linear 1.5s;*/
-}
-/*
-.infoPanel.ng-hide {
-  top: -100px;
+  -webkit-transition: linear 0.3s;
+  transition: linear 0.3s;
 }
 
+.infoPanel.ng-hide {
+  right: -100px;
+}
+/*
 .infoPanel.ng-hide-add, .infoPanel.ng-hide-remove {
   display:block!important;
 }*/
@@ -78,9 +78,24 @@ a.navbar-brand {
 
 footer {
     position: fixed;
-    height: 50px;
-    bottom: 0;
+/*    height: 50px;
+*/    bottom: 0;
     width: 100%;
     background-color: #a60115;
 
 }
+
+/*.sample-show-hide {
+  padding:10px;
+  border:1px solid black;
+  background:white;
+}
+
+.sample-show-hide {
+  -webkit-transition:all linear 0.5s;
+  transition:all linear 0.5s;
+}
+
+.sample-show-hide.ng-hide {
+  opacity:0;
+}*/
