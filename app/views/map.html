@@ -1,0 +1,13 @@
+<section id="map">
+  <div ui-map="myMap" ui-options="map"  class="map-canvas"></div>
+
+  <div class="infoPanel">
+  Info Panel
+  {{markerInfo}}
+  </div>
+</section>
+<footer class="footer">
+  <div class="container">
+    <button ng-click="getCurrentPosition()">localisation</button>
+  </div>
+</footer>
