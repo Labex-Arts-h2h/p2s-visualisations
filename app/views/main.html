@@ -1,12 +1,15 @@
 <ui-gmap-google-map  center='map.center' zoom='map.zoom' control="map.control" options='options' styles="styles" events="events">
       <ui-gmap-markers models="markers" coords="'self'" icon="'icon'"  options="'options'" events="clickEventsObject">
-         <ui-gmap-windows show="'showWindow'" closeClick="'closeClick'"  ng-cloak>
+         <ui-gmap-windows show="'showWindow'" options="infoWindows.options" closeClick="'closeClick'"  ng-cloak>
               <div >
               <span>{{model.descriptionHtml}}</span>
 <!--               <span ng-non-bindable>{{options.content.imageHtml}}</span> -->
              <h4 ng-non-bindable>{{title}}</h4>
-             <img class="img-responsive" src="{{markerInfo.model.options.content.imageHtml}}">
-                  <p ng-non-bindable > {{ latitude | number:4 }}, {{ longitude | number:4 }}</p>       
+             <img src="{{markerInfo.model.options.content.imageHtmlSmall}}">
+                  <p style='width:380px' ng-non-bindable> {{options.content.descriptionHtml | limitTo:120}}...
+                  <br>
+                  <strong>{{ latitude | number:4 }}, {{ longitude | number:4 }}</strong>
+                  </p>       
                   <button class="btn btn-primary" ng-click='$parent.$parent.getDirectionActif()'>Parcours...</button>
                   <button class="btn btn-primary" ng-click='$parent.$parent.displayInfoPanelMarker()'>Plus d'infos...</button>
 

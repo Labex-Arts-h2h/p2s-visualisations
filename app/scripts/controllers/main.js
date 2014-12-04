@@ -4,13 +4,12 @@ angular.module('p2sAppApp')
 
 	$scope.map = {center: {latitude: 48.865374, longitude: 2.342758 }, zoom: 16, control: {}, markerControl: {} };
 	$scope.options = { streetViewControl: false, panControl: false, maxZoom: 17, minZoom: 14};
+	$scope.infoWindows = { options : { maxWidth: 200 }};
 	var appleStyle = [{"featureType": "transit.station.rail", "stylers": [{"visibility": "off"}] }, {"featureType": "water", "elementType": "geometry", "stylers": [{"color": "#a2daf2"}] }, {"featureType": "landscape.man_made", "elementType": "geometry", "stylers": [{"color": "#f7f1df"}] }, {"featureType": "landscape.natural", "elementType": "geometry", "stylers": [{"color": "#d0e3b4"}] }, {"featureType": "landscape.natural.terrain", "elementType": "geometry", "stylers": [{"visibility": "off"}] }, {"featureType": "poi.park", "elementType": "geometry", "stylers": [{"color": "#bde6ab"}] }, {"featureType": "poi", "elementType": "labels", "stylers": [{"visibility": "off"}] }, {"featureType": "poi.medical", "elementType": "geometry", "stylers": [{"color": "#fbd3da"}] }, {"featureType": "poi.business", "stylers": [{"visibility": "off"}] }, {"featureType": "road", "elementType": "geometry.stroke", "stylers": [{"visibility": "off"}] }, {"featureType": "road", "elementType": "labels", "stylers": [{"visibility": "off"}] }, {"featureType": "road.highway", "elementType": "geometry.fill", "stylers": [{"color": "#ffe15f"}] }, {"featureType": "road.highway", "elementType": "geometry.stroke", "stylers": [{"color": "#efd151"}] }, {"featureType": "road.arterial", "elementType": "geometry.fill", "stylers": [{"color": "#ffffff"}] }, {"featureType": "road.local", "elementType": "geometry.fill", "stylers": [{"color": "black"}] }, {"featureType": "transit.station.airport", "elementType": "geometry.fill", "stylers": [{"color": "#cfb2db"}] }];
 	$scope.styles = appleStyle;
  	$scope.infoPanelShow = false;
  	$scope.markers = [];
  	$scope.markerActifPosition = '';
-
-
 
 	// GOOGLE API THEN
     GoogleMapApi.then(function(maps) {
@@ -99,13 +98,18 @@ angular.module('p2sAppApp')
 		mouseover: markerMouseOver,
 		mouseout: markerMouseOut,
 		click : $scope.displayInfoPanel
+		//click : clickclick
+
 	};
-	function clickclick () {
-		console.log("clickclick");
+	function clickclick ( mousclickmarker, event) {
+		console.log(mousclickmarker);
+			$scope.showWindow = false;
+
+		//mousclickmarker.visible = false;
 	}
 	function markerMouseOver( mousedmarker, event ) {
-		console.log('markerMouseOver ?? #'+ mousedmarker.key);
-		console.log(mousedmarker, event);
+		//console.log('markerMouseOver ?? #'+ mousedmarker.key);
+		//console.log(mousedmarker, event);
 	}
 	function markerMouseOut( mousedmarker, event ) {
 		//console.log('?? markerMouseOut #'+ mousedmarker.key);
@@ -117,14 +121,17 @@ angular.module('p2sAppApp')
 	for (i = 0; i<$scope.markers.length;i++){
 		
 		console.log($scope.markers[i]);
-        $scope.markers[i].show = false;
+        $scope.markers[i].showWindow = false;
+
       }
+        //$scope.$apply();
 
       // $scope.$apply();
-		// angular.forEach($scope.markers, function(value, key) {
-		//  console.log(value.showWindow);
-		//  console.log(key);
-		// });
+		angular.forEach($scope.markers, function(value, key) {
+		 console.log(value.showWindow = false);
+		 value.showWindow = false;
+		 console.log(key);
+		});
 	}
 
     $scope.getDirection = function(position) {
@@ -176,6 +183,7 @@ angular.module('p2sAppApp')
         labelAnchor: "22 0",
         labelClass: "marker-labels",
         content : {
+        	imageHtmlSmall : 'images/theatre-royal-small.png',
         	imageHtml : 'images/theatre-royal.jpg',
         	descriptionHtml : 'Le théâtre du Palais-Royal est une salle de spectacles parisienne située 38, rue de Montpensier (1er arr.) et donnant sur les jardins du Palais-Royal. L\'extérieur du bâtiment (façades et toiture) fait l\'objet d\'un classement au titre des monuments historiques depuis le 16 mars 1930, le théâtre en totalité fait l\'objet d\'une inscription depuis le 3 août 19931.'
         }   
@@ -196,6 +204,7 @@ angular.module('p2sAppApp')
         labelAnchor: "22 0",
         labelClass: "marker-labels",
         content : {
+        	imageHtmlSmall : 'images/theatre-louvois-small.png',        	
         	imageHtml : 'images/theatre-louvois.jpg',
         	descriptionHtml : 'Le théâtre Louvois est une ancienne salle de spectacles parisienne située au 6, rue de Louvois, dans le 2e arrondissement. Inaugurée en 1791 et fermée en 1825, elle servit de salle d\opéra de février 1820 à août 1821.'
         }
@@ -212,6 +221,7 @@ angular.module('p2sAppApp')
         labelAnchor: "22 0",
         labelClass: "marker-labels",
         content : {
+        	imageHtmlSmall : 'images/theatre-varietes-small.png',        	
         	imageHtml : 'images/theatre-varietes.jpg',
         	descriptionHtml : 'Le théâtre des Variétés est une salle de spectacles située au 7, boulevard Montmartre dans le 2ᵉ arrondissement de Paris. Inauguré en 1807, c\'est l\'un des plus anciens théâtres parisiens encore en activité.'
         }        
