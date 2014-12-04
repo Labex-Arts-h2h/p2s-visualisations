@@ -1,31 +1,56 @@
 <ui-gmap-google-map  center='map.center' zoom='map.zoom' control="map.control" options='options' styles="styles" events="events">
       <ui-gmap-markers models="markers" coords="'self'" icon="'icon'"  options="'options'" events="clickEventsObject">
-<!--          <ui-gmap-windows show="'showWindow'" closeClick="'closeClick'"  ng-cloak>
+         <ui-gmap-windows show="'showWindow'" closeClick="'closeClick'"  ng-cloak>
               <div >
-              <h4 ng-non-bindable>{{title}}</h4>
-                  I should not be attached to a
-                  marker.
-                  <p ng-non-bindable >This is an info window at {{ latitude | number:4 }}, {{ longitude | number:4 }}!
-<button ng-click='getDirection(markerInfo.position)'>Direction</button>
-                  </p>
+              <span>{{model.descriptionHtml}}</span>
+<!--               <span ng-non-bindable>{{options.content.imageHtml}}</span> -->
+             <h4 ng-non-bindable>{{title}}</h4>
+             <img class="img-responsive" src="{{markerInfo.model.options.content.imageHtml}}">
+                  <p ng-non-bindable > {{ latitude | number:4 }}, {{ longitude | number:4 }}</p>       
+                  <button class="btn btn-primary" ng-click='$parent.$parent.getDirectionActif()'>Parcours...</button>
+                  <button class="btn btn-primary" ng-click='$parent.$parent.displayInfoPanelMarker()'>Plus d'infos...</button>
 
-                  <p class="muted">My marker will stay open when the window is popped up!</p>
 
+<!--                    <button ng-click='$parent.infoPanelShow=true'>show infopannel</button> -->
+           
+
+
+                  <!-- // pour effacer lesmarqueurs
+                  http://plnkr.co/edit/pqJUv6KYSrcMcgfFM6f0?p=preview
+                   -->
+
+<!--                     <div ng-controller="MainCtrl">
+                        <a  ng-click="getDirectionLatLng()">hit me</a>
+
+                        <p>This is an info window at {{ m.latitude | number:4 }}, {{ longitude | number:4 }}!</p>
+
+                        <p class="muted">My marker will stay open when the window is popped up!</p>
+                    </div>
+ -->
 
               </div>
-          </ui-gmap-windows> -->
+          </ui-gmap-windows>
       </ui-gmap-markers>
 </ui-gmap-google-map>
-  <div class="infoPanel sample-show-hide" ng-show="infoPanelShow" >
-    <h3>{{markerInfo.labelContent}}</h3>
-    {{markerInfo.key}}
-            <button ng-click="infoPanelShow=false">Close</button>
+<div id="infoPanel" class="infoPanel sample-show-hide col-md-4" ng-show="infoPanelShow" >
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="infoPanelShow=false">×</button>
 
-    <button ng-click='getDirection(markerInfo.position)'>Direction</button>
-  </div>
+  <h3>{{markerInfo.labelContent}}</h3>
+  <img class="img-responsive" src="{{markerInfo.model.options.content.imageHtml}}">
+  <div ng-bind-html="markerInfo.model.options.content.descriptionHtml"></div>
+  <ul>
+    <li ng-repeat="piece in markerInfo.model.pieces">{{piece.title}}</li>
+  </ul>
+  <ul>
+    <li ng-repeat="step in directionSteps"><span ng-bind-html="step.instructions"></span></li>
+  </ul>
+  <button ng-click='getDirection(markerInfo.position)'>Direction</button>
+</div>
+
 <footer class="footer">
   <div class="container">
     <button ng-click="getCurrentPosition()">localisation</button>
+        <button ng-click="closeAllWindows()">clean</button>
   </div>
 </footer>
 

@@ -14,6 +14,7 @@ angular
     GoogleMapApi.configure({
       //    key: 'your api key',
       v: '3.17',
+      language : 'fr',
       libraries: 'weather,geometry,visualization'
     });
   }])
