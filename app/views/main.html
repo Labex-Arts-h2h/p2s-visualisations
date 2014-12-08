@@ -1,9 +1,8 @@
 <ui-gmap-google-map  center='map.center' zoom='map.zoom' control="map.control" options='options' styles="styles" events="events">
       <ui-gmap-markers models="markers" coords="'self'" icon="'icon'"  options="'options'" events="clickEventsObject">
-         <ui-gmap-windows show="'showWindow'" options="infoWindows.options" closeClick="'closeClick'"  ng-cloak>
+         <ui-gmap-windows show="'showWindow'" options="infoWindows.options" closeClick="'closeClick'" control="infoWindows.control"  ng-cloak>
               <div >
-              <span>{{model.descriptionHtml}}</span>
-<!--               <span ng-non-bindable>{{options.content.imageHtml}}</span> -->
+            <span>{{model.descriptionHtml}}</span>
              <h4 ng-non-bindable>{{title}}</h4>
              <img src="{{markerInfo.model.options.content.imageHtmlSmall}}">
                   <p style='width:380px' ng-non-bindable> {{options.content.descriptionHtml | limitTo:120}}...
@@ -35,25 +34,30 @@
           </ui-gmap-windows>
       </ui-gmap-markers>
 </ui-gmap-google-map>
-<div id="infoPanel" class="infoPanel sample-show-hide col-md-4" ng-show="infoPanelShow" >
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="infoPanelShow=false">×</button>
-
+<div id="infoPanel" class="infoPanel sample-show-hide col-md-4 col-sm-4" ng-show="infoPanelShow" >
+  <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="infoPanelShow=false">×</button>
   <h3>{{markerInfo.labelContent}}</h3>
   <img class="img-responsive" src="{{markerInfo.model.options.content.imageHtml}}">
   <div ng-bind-html="markerInfo.model.options.content.descriptionHtml"></div>
   <ul>
     <li ng-repeat="piece in markerInfo.model.pieces">{{piece.title}}</li>
   </ul>
+  <button ng-click='getDirection(markerInfo.position)'>Direction</button>
+</div>
+
+
+<div id="directionPanel" class="infoPanel sample-show-hide col-md-4 col-sm-4" ng-show="directionPanelShow" >
+  <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="directionPanelShow=false">×</button>
+  <h3>{{markerInfo.labelContent}}</h3>
+
   <ul>
     <li ng-repeat="step in directionSteps"><span ng-bind-html="step.instructions"></span></li>
   </ul>
-  <button ng-click='getDirection(markerInfo.position)'>Direction</button>
 </div>
 
 <footer class="footer">
   <div class="container">
     <button ng-click="getCurrentPosition()">localisation</button>
-        <button ng-click="closeAllWindows()">clean</button>
   </div>
 </footer>
 

@@ -18,6 +18,12 @@ body, html {
 .infoPanel.ng-hide {
   right: -100px;
 }
+
+@media (max-width: 768px) {
+  .infoPanel {
+    top :200px;
+  }
+}
 /*
 .infoPanel.ng-hide-add, .infoPanel.ng-hide-remove {
   display:block!important;

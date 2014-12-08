@@ -4,10 +4,13 @@ angular.module('p2sAppApp')
 
 	$scope.map = {center: {latitude: 48.865374, longitude: 2.342758 }, zoom: 16, control: {}, markerControl: {} };
 	$scope.options = { streetViewControl: false, panControl: false, maxZoom: 17, minZoom: 14};
-	$scope.infoWindows = { options : { maxWidth: 200 }};
+	//$scope.infoWindows = { options : { maxWidth: 200 }, control : {}};
+	$scope.infoWindows = { options : { visible: false }, control : {}};
+
 	var appleStyle = [{"featureType": "transit.station.rail", "stylers": [{"visibility": "off"}] }, {"featureType": "water", "elementType": "geometry", "stylers": [{"color": "#a2daf2"}] }, {"featureType": "landscape.man_made", "elementType": "geometry", "stylers": [{"color": "#f7f1df"}] }, {"featureType": "landscape.natural", "elementType": "geometry", "stylers": [{"color": "#d0e3b4"}] }, {"featureType": "landscape.natural.terrain", "elementType": "geometry", "stylers": [{"visibility": "off"}] }, {"featureType": "poi.park", "elementType": "geometry", "stylers": [{"color": "#bde6ab"}] }, {"featureType": "poi", "elementType": "labels", "stylers": [{"visibility": "off"}] }, {"featureType": "poi.medical", "elementType": "geometry", "stylers": [{"color": "#fbd3da"}] }, {"featureType": "poi.business", "stylers": [{"visibility": "off"}] }, {"featureType": "road", "elementType": "geometry.stroke", "stylers": [{"visibility": "off"}] }, {"featureType": "road", "elementType": "labels", "stylers": [{"visibility": "off"}] }, {"featureType": "road.highway", "elementType": "geometry.fill", "stylers": [{"color": "#ffe15f"}] }, {"featureType": "road.highway", "elementType": "geometry.stroke", "stylers": [{"color": "#efd151"}] }, {"featureType": "road.arterial", "elementType": "geometry.fill", "stylers": [{"color": "#ffffff"}] }, {"featureType": "road.local", "elementType": "geometry.fill", "stylers": [{"color": "black"}] }, {"featureType": "transit.station.airport", "elementType": "geometry.fill", "stylers": [{"color": "#cfb2db"}] }];
 	$scope.styles = appleStyle;
  	$scope.infoPanelShow = false;
+ 	$scope.directionPanelShow = false;
  	$scope.markers = [];
  	$scope.markerActifPosition = '';
 
@@ -29,10 +32,6 @@ angular.module('p2sAppApp')
 
 	});
 	// END GOOGLE API THEN 
-	$scope.functionLog = function() {
-		console.log();
-
-	}
 
 
 	$scope.getCurrentPosition = function() {
@@ -52,7 +51,6 @@ angular.module('p2sAppApp')
 	}
 
 	$scope.addMarkerGeoloc = function(pos) {
-
 		$scope.markers.push({
       	id: 0,
       	// icon: 'images/blue_marker.png',
@@ -82,17 +80,31 @@ angular.module('p2sAppApp')
 	}
 
 	$scope.displayInfoPanel = function (marker, event) {
-		//$scope.infoPanelShow = true;
-		console.log(marker);
+		$scope.infoPanelShow = false;
 		$scope.markerActifPosition = marker.position;
-		$scope.changePosition(marker.position);
+		//$scope.changePosition(marker.position);
 		$scope.markerInfo = marker;
 	}
-
+	
 	$scope.displayInfoPanelMarker = function (marker, event) {
 		$scope.infoPanelShow = true;
+		$scope.directionPanelShow = false;
+				
+		$scope.closeAllWindows();
+		console.log($scope.markerInfo.position);
+		//$scope.changePosition($scope.markerInfo.position);
+		offsetCenter($scope.markerInfo.position, -210, 210)
+
 
 	}
+
+	$scope.closeAllWindows = function() {
+	 angular.forEach($scope.infoWindows.control.getGWindows(), function(value, key) {
+	 	 value.close();
+	 });
+	}
+
+
 
 	$scope.clickEventsObject = {
 		mouseover: markerMouseOver,
@@ -102,36 +114,41 @@ angular.module('p2sAppApp')
 
 	};
 	function clickclick ( mousclickmarker, event) {
-		console.log(mousclickmarker);
-			$scope.showWindow = false;
-
-		//mousclickmarker.visible = false;
+		console.log($scope.infoWindows);
+			$scope.infoWindows = false;
 	}
 	function markerMouseOver( mousedmarker, event ) {
-		//console.log('markerMouseOver ?? #'+ mousedmarker.key);
-		//console.log(mousedmarker, event);
 	}
 	function markerMouseOut( mousedmarker, event ) {
-		//console.log('?? markerMouseOut #'+ mousedmarker.key);
-		//console.log(mousedmarker);
 	}
 
-	$scope.closeAllWindows = function() {
+	function offsetCenter(latlng,offsetx,offsety) {
 
-	for (i = 0; i<$scope.markers.length;i++){
-		
-		console.log($scope.markers[i]);
-        $scope.markers[i].showWindow = false;
+		// latlng is the apparent centre-point
+		// offsetx is the distance you want that point to move to the right, in pixels
+		// offsety is the distance you want that point to move upwards, in pixels
+		// offset can be negative
+		// offsetx and offsety are both optional
+    	var gmapd = $scope.map.control.getGMap();
 
-      }
-        //$scope.$apply();
+		var scale = Math.pow(2, gmapd.getZoom());
+		var nw = new google.maps.LatLng(
+		    gmapd.getBounds().getNorthEast().lat(),
+		    gmapd.getBounds().getSouthWest().lng()
+		);
 
-      // $scope.$apply();
-		angular.forEach($scope.markers, function(value, key) {
-		 console.log(value.showWindow = false);
-		 value.showWindow = false;
-		 console.log(key);
-		});
+		var worldCoordinateCenter = gmapd.getProjection().fromLatLngToPoint(latlng);
+		var pixelOffset = new google.maps.Point((offsetx/scale) || 0,(offsety/scale) ||0)
+
+		var worldCoordinateNewCenter = new google.maps.Point(
+		    worldCoordinateCenter.x - pixelOffset.x,
+		    worldCoordinateCenter.y + pixelOffset.y
+		);
+
+		var newCenter = gmapd.getProjection().fromPointToLatLng(worldCoordinateNewCenter);
+
+		gmapd.setCenter(newCenter);
+
 	}
 
     $scope.getDirection = function(position) {
@@ -154,6 +171,9 @@ angular.module('p2sAppApp')
     }
 
     $scope.getDirectionActif = function() {
+		$scope.directionPanelShow = true;
+		$scope.infoPanelShow = false;
+		$scope.closeAllWindows();
     	var gmapd = $scope.map.control.getGMap();
 		var request = {
 		    origin: $scope.posFake,
@@ -165,7 +185,6 @@ angular.module('p2sAppApp')
 		  if (status == google.maps.DirectionsStatus.OK) {
 		  	$scope.directionSteps = response.routes[0].legs[0].steps;
 		    $scope.directionsDisplay.setDirections(response);
-
 		  }
 		});
 		$scope.directionsDisplay.setMap(gmapd);
