@@ -11,53 +11,42 @@
                   </p>       
                   <button class="btn btn-primary" ng-click='$parent.$parent.getDirectionActif()'>Parcours...</button>
                   <button class="btn btn-primary" ng-click='$parent.$parent.displayInfoPanelMarker()'>Plus d'infos...</button>
-
-
-<!--                    <button ng-click='$parent.infoPanelShow=true'>show infopannel</button> -->
-           
-
-
-                  <!-- // pour effacer lesmarqueurs
-                  http://plnkr.co/edit/pqJUv6KYSrcMcgfFM6f0?p=preview
-                   -->
-
-<!--                     <div ng-controller="MainCtrl">
-                        <a  ng-click="getDirectionLatLng()">hit me</a>
-
-                        <p>This is an info window at {{ m.latitude | number:4 }}, {{ longitude | number:4 }}!</p>
-
-                        <p class="muted">My marker will stay open when the window is popped up!</p>
-                    </div>
- -->
-
               </div>
           </ui-gmap-windows>
       </ui-gmap-markers>
 </ui-gmap-google-map>
-<div id="infoPanel" class="infoPanel sample-show-hide col-md-4 col-sm-4" ng-show="infoPanelShow" >
+
+<!-- INFO PANEL -->
+<div id="infoPanel" class="infoPanel shadow-z-1 sample-show-hide col-md-4 col-sm-4" ng-show="infoPanelShow" >
   <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="infoPanelShow=false">×</button>
   <h3>{{markerInfo.labelContent}}</h3>
   <img class="img-responsive" src="{{markerInfo.model.options.content.imageHtml}}">
-  <div ng-bind-html="markerInfo.model.options.content.descriptionHtml"></div>
-  <ul>
-    <li ng-repeat="piece in markerInfo.model.pieces">{{piece.title}}</li>
+  <div class="description" ng-bind-html="markerInfo.model.options.content.descriptionHtml"></div>
+  <h4><strong>Pièces</strong></h4>
+  <ul class="list-pieces">
+    <li class="piece" ng-repeat="piece in markerInfo.model.pieces">
+        <img class="img-responsive" src="{{piece.image}}">
+        <span class="titre">{{piece.title}}</span>
+    </li>
   </ul>
-  <button ng-click='getDirection(markerInfo.position)'>Direction</button>
-</div>
+   <button class="btn btn-primary" ng-click='getDirection(markerInfo.position)'>Direction</button>
+ </div>
+<!-- END INFO PANEL -->
 
-
+<!-- DIRECTION PANEL -->
 <div id="directionPanel" class="infoPanel sample-show-hide col-md-4 col-sm-4" ng-show="directionPanelShow" >
   <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="directionPanelShow=false">×</button>
   <h3>{{markerInfo.labelContent}}</h3>
-
   <ul>
     <li ng-repeat="step in directionSteps"><span ng-bind-html="step.instructions"></span></li>
   </ul>
 </div>
-
+<hr>
+<!-- END DIRECTION PANEL -->
+<!-- 
 <footer class="footer">
   <div class="container">
     <button ng-click="getCurrentPosition()">localisation</button>
   </div>
-</footer>
+</footer> -->
 
