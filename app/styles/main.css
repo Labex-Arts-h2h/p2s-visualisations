@@ -1,7 +1,14 @@
 body, html {
-  overflow: hidden;
-
+/*  overflow: hidden;
+*/
 }
+/*=== MAIN ===*/
+
+.cartouche {
+  background-color: white;
+}
+
+/*=== MAP ===*/
 .map-canvas, .angular-google-map,.angular-google-map-container {
   width: 100%;
   height: 100vh;

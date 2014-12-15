@@ -1,9 +1,43 @@
 <div class="container">
 <h3>Théatres</h3>
+<div class="row">
+	<div ng-repeat='theatre in theatres' class="cartouche shadow-z-1 col-lg-3 col-md-3">
+		<h4>{{theatre.nom}}</h4>
+		<ul>
+			<li ng-repeat="date in theatre.dates">
+			{{date.description}} - {{date.date | date:'medium'}}
+			</li>
+		</ul>
+	</div>
+</div>
 
 
 <h3>Pièces</h3>
 
+<div class="row">
+	<div ng-repeat='piece in pieces' class="cartouche shadow-z-1 col-lg-3 col-md-3">
+		<h4>{{piece.nom}}</h4>
+		<ul>
+			<li ng-repeat="date in piece.dates">
+			{{date.description}} - {{date.date | date:'medium'}}
+			</li>
+		</ul>
+	</div>
+</div>
+
 <h3>Personnes</h3>
+<div class="row">
+	<div style="height:350px;" ng-repeat='personne in personnes' class="cartouche shadow-z-1 col-lg-3 col-md-3">
+	
+		<h4>{{personne.nom}}</h4>
+		<img src="http://placehold.it/350x200" class="img-responsive">
+		<p>{{personne.descriptif}}</p>
+		<ul>
+			<li ng-repeat="date in personne.dates">
+			{{date.description}} - {{date.date | date:'medium'}}
+			</li>
+		</ul>
+	</div>
+</div>
 
 </div>
