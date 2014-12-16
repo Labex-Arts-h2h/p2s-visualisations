@@ -1,5 +1,5 @@
 'use strict';
-angular.module('p2sAppApp', ['ngCookies', 'ngResource', 'ngSanitize', 'ngAnimate', 'ui.router', 'uiGmapgoogle-maps'])
+angular.module('p2sAppApp', ['ngCookies', 'ngResource', 'ngSanitize', 'ngAnimate', 'ui.router', 'uiGmapgoogle-maps', 'angularMoment'])
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider.state('main', {
     url: '/',

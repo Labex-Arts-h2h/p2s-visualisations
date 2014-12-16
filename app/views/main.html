@@ -1,13 +1,26 @@
 <div class="container">
+<h5>Filtres</h5>
+ <select class="form-control" ng-model="datePeriode" ng-options="range.name for range in dateRanges"></select>
+
 <h3>Théatres</h3>
 <div class="row">
-	<div ng-repeat='theatre in theatres' class="cartouche shadow-z-1 col-lg-3 col-md-3">
-		<h4>{{theatre.nom}}</h4>
-		<ul>
-			<li ng-repeat="date in theatre.dates">
-			{{date.description}} - {{date.date | date:'medium'}}
-			</li>
-		</ul>
+	<div ng-repeat='theatre in theatres | isAfter:datePeriode:"Début"' class=" col-lg-3 col-md-3" >
+		<div class="cartouche shadow-z-1">
+			<h4>{{theatre.nom}}</h4>
+			<div class="image">
+				<img src="{{theatre.image}}" class="img-responsive" ng-click='viewDescriptif=true' ng-hide="viewDescriptif">
+				<!-- animate-hide -->
+				<div class="descriptif animate-hide" ng-show="viewDescriptif" ng-click='viewDescriptif=false'>
+					<p>{{theatre.descriptif}}</p>
+					<ul>
+						<li ng-repeat="date in theatre.dates">
+						<strong>{{date.description}}</strong> - {{date.date | date:'longDate'}}
+						</li>
+					</ul>				
+				</div>
+			</div>
+
+		</div>
 	</div>
 </div>
 
@@ -15,29 +28,44 @@
 <h3>Pièces</h3>
 
 <div class="row">
-	<div ng-repeat='piece in pieces' class="cartouche shadow-z-1 col-lg-3 col-md-3">
-		<h4>{{piece.nom}}</h4>
-		<ul>
-			<li ng-repeat="date in piece.dates">
-			{{date.description}} - {{date.date | date:'medium'}}
-			</li>
-		</ul>
+	<div ng-repeat='piece in pieces | isAfter:datePeriode:"Début"' class="col-lg-3 col-md-3">
+		<div class="cartouche shadow-z-1">
+			<h4>{{piece.nom}}</h4>
+			<div class="image">
+				<img src="{{piece.image}}" class="animate-hide img-responsive" ng-click='viewDescriptif=true' ng-hide="viewDescriptif">
+				<!-- animate-hide -->
+				<div class="descriptif animate-hide" ng-show="viewDescriptif" ng-click='viewDescriptif=false'>
+					<p>{{piece.descriptif}}</p>
+					<ul>
+						<li ng-repeat="date in piece.dates">
+						<strong>{{date.description}}</strong> - {{date.date | date:'longDate'}}
+						</li>
+					</ul>				
+				</div>
+			</div>
+		</div>
 	</div>
 </div>
 
 <h3>Personnes</h3>
 <div class="row">
-	<div style="height:350px;" ng-repeat='personne in personnes' class="cartouche shadow-z-1 col-lg-3 col-md-3">
-	
-		<h4>{{personne.nom}}</h4>
-		<img src="http://placehold.it/350x200" class="img-responsive">
-		<p>{{personne.descriptif}}</p>
-		<ul>
-			<li ng-repeat="date in personne.dates">
-			{{date.description}} - {{date.date | date:'medium'}}
-			</li>
-		</ul>
+	<div ng-repeat="personne in personnes | orderBy:'image'" class="col-lg-3 col-md-3">
+		<div class="personne cartouche shadow-z-1">
+			<h4>{{personne.nom}}</h4>
+			<div class="image" ng-if="personne.image!=null">
+				<img src="{{personne.image}}" class="img-responsive">
+			</div>
+			<div class="descriptif" >
+				<p>{{personne.descriptif}}</p>
+				<ul>
+					<li ng-repeat="date in personne.dates">
+					{{date.description}} - {{date.date | date:'medium'}}
+					</li>
+				</ul>
+			</div>
+		</div>
 	</div>
+
 </div>
 
 </div>
