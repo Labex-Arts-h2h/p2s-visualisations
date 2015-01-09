@@ -1,8 +1,10 @@
 'use strict';
 angular.module('p2sAppApp').controller('MainCtrl', function($scope, DateRanges, Api, ngDialog) {
-    $scope.personnes = Api.Personnes.query();
-	$scope.theatres = Api.Theatres.query();
-	$scope.pieces = Api.Pieces.query();
+  $scope.personnes = Api.Personnes.query();
+  $scope.theatres = Api.Theatres.query();
+  $scope.pieces = Api.Pieces.query();
+  $scope.links = Api.Links.query();
+  console.log($scope.links);
 
     $scope.dateRanges = DateRanges;
     $scope.datePeriode = $scope.dateRanges[0];

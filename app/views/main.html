@@ -89,7 +89,16 @@
 			<li ng-repeat="date in ngDialogData.dates">
 			<strong>{{date.description}}</strong> - {{date.date | date:'longDate'}}
 			</li>
-		</ul>	
+		</ul>
+		<h4>Liens</h4>
+		<ul>
+			<li ng-repeat='link in links | filter:{ target1 : ngDialogData.id }'>
+				{{link.target2.selected.nom}} - {{link.target2.target.name}}
+			</li>
+			<li ng-repeat='link in links | filter:{ target2 : ngDialogData.id }'>
+				{{link.target1.selected.nom}} - {{link.target1.target.name}}
+			</li>					
+		</ul>
 	</div>
 	<div class="ngdialog-buttons">
 		<div class="ngdialog-buttons">
