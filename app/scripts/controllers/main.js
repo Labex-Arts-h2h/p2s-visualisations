@@ -1,11 +1,12 @@
 'use strict';
-angular.module('p2sAppApp').controller('MainCtrl', function($scope, DateRanges, Api) {
+angular.module('p2sAppApp').controller('MainCtrl', function($scope, DateRanges, Api, ngDialog) {
     $scope.personnes = Api.Personnes.query();
 	$scope.theatres = Api.Theatres.query();
 	$scope.pieces = Api.Pieces.query();
 
     $scope.dateRanges = DateRanges;
     $scope.datePeriode = $scope.dateRanges[0];
+
 
 	
 })

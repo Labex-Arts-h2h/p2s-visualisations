@@ -2,25 +2,31 @@
 <h5>Filtres</h5>
  <select class="form-control" ng-model="datePeriode" ng-options="range.name for range in dateRanges"></select>
 
+
 <h3>Théatres</h3>
 <div class="row">
 	<div ng-repeat='theatre in theatres | isAfter:datePeriode:"Début"' class=" col-lg-3 col-md-3" >
-		<div class="cartouche shadow-z-1">
-			<h4>{{theatre.nom}}</h4>
-			<div class="image">
-				<img src="{{theatre.image}}" class="img-responsive" ng-click='viewDescriptif=true' ng-hide="viewDescriptif">
-				<!-- animate-hide -->
-				<div class="descriptif animate-hide" ng-show="viewDescriptif" ng-click='viewDescriptif=false'>
-					<p>{{theatre.descriptif}}</p>
-					<ul>
-						<li ng-repeat="date in theatre.dates">
-						<strong>{{date.description}}</strong> - {{date.date | date:'longDate'}}
-						</li>
-					</ul>				
+		<a ng-dialog="templateDialog"
+		ng-dialog-data="{{theatre}}"
+		ng-dialog-class="ngdialog-theme-default"
+		ng-dialog-scope="this"
+		ng-dialog-show-close="true">
+			<div class="cartouche shadow-z-1">
+				<h4>{{theatre.nom}}</h4>
+				<div class="image">
+					<img src="{{theatre.image}}" class="img-responsive" >
+					<!-- animate-hide -->
+	<!-- 				<div class="descriptif animate-hide" ng-show="viewDescriptif" ng-click='viewDescriptif=false'>
+						<p>{{theatre.descriptif}}</p>
+						<ul>
+							<li ng-repeat="date in theatre.dates">
+							<strong>{{date.description}}</strong> - {{date.date | date:'longDate'}}
+							</li>
+						</ul>				
+					</div> -->
 				</div>
 			</div>
-
-		</div>
+		</a>
 	</div>
 </div>
 
@@ -29,43 +35,66 @@
 
 <div class="row">
 	<div ng-repeat='piece in pieces | isAfter:datePeriode:"Début"' class="col-lg-3 col-md-3">
-		<div class="cartouche shadow-z-1">
-			<h4>{{piece.nom}}</h4>
-			<div class="image">
-				<img src="{{piece.image}}" class="animate-hide img-responsive" ng-click='viewDescriptif=true' ng-hide="viewDescriptif">
-				<!-- animate-hide -->
-				<div class="descriptif animate-hide" ng-show="viewDescriptif" ng-click='viewDescriptif=false'>
-					<p>{{piece.descriptif}}</p>
-					<ul>
-						<li ng-repeat="date in piece.dates">
-						<strong>{{date.description}}</strong> - {{date.date | date:'longDate'}}
-						</li>
-					</ul>				
+		<a ng-dialog="templateDialog"
+		ng-dialog-data="{{piece}}"
+		ng-dialog-class="ngdialog-theme-default"
+		ng-dialog-scope="this"
+		ng-dialog-show-close="true">
+			<div class="cartouche shadow-z-1">
+				<h4>{{piece.nom}}</h4>
+				<div class="image">
+					<img src="{{piece.image}}" class="animate-hide img-responsive" >
+					<!-- animate-hide -->
+<!-- 					<div class="descriptif animate-hide" ng-show="viewDescriptif" ng-click='viewDescriptif=false'>
+						<p>{{piece.descriptif}}</p>
+						<ul>
+							<li ng-repeat="date in piece.dates">
+							<strong>{{date.description}}</strong> - {{date.date | date:'longDate'}}
+							</li>
+						</ul>				
+					</div> -->
 				</div>
 			</div>
-		</div>
+		</a>
 	</div>
 </div>
 
 <h3>Personnes</h3>
 <div class="row">
 	<div ng-repeat="personne in personnes | orderBy:'image'" class="col-lg-3 col-md-3">
-		<div class="personne cartouche shadow-z-1">
-			<h4>{{personne.nom}}</h4>
-			<div class="image" ng-if="personne.image!=null">
-				<img src="{{personne.image}}" class="img-responsive">
+		<a ng-dialog="templateDialog"
+		ng-dialog-data="{{personne}}"
+		ng-dialog-class="ngdialog-theme-default"
+		ng-dialog-scope="this"
+		ng-dialog-show-close="true">
+			<div class="personne cartouche shadow-z-1">
+				<h4>{{personne.nom}}</h4>
+				<div class="image" ng-if="personne.image!=null">
+					<img src="{{personne.image}}" class="img-responsive">
+				</div>
 			</div>
-			<div class="descriptif" >
-				<p>{{personne.descriptif}}</p>
-				<ul>
-					<li ng-repeat="date in personne.dates">
-					{{date.description}} - {{date.date | date:'medium'}}
-					</li>
-				</ul>
-			</div>
-		</div>
+		</a>
 	</div>
 
 </div>
 
+
+
+<script type="text/ng-template" id="templateDialog">
+	<div class="ngdialog-message">
+		<h3>{{ngDialogData.nom}}</h3>
+		<img src="{{ngDialogData.image}}" />
+		<p>{{ngDialogData.descriptif}}</p>
+		<ul>
+			<li ng-repeat="date in ngDialogData.dates">
+			<strong>{{date.description}}</strong> - {{date.date | date:'longDate'}}
+			</li>
+		</ul>	
+	</div>
+	<div class="ngdialog-buttons">
+		<div class="ngdialog-buttons">
+			<button type="button" class="ngdialog-button ngdialog-button-secondary" ng-click="closeThisDialog('button')">Fermeture</button>
+		</div>
+	</div>
+</script>
 </div>

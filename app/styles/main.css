@@ -11,6 +11,13 @@ body, html {
 .cartouche h4 {
   padding: 10px 0px 0px 10px;
 }
+a {  
+  color: black;
+}
+
+a:hover {
+  text-decoration: none;
+}
 
 .image {
   width:100%;
