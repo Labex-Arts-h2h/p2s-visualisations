@@ -9,6 +9,10 @@ angular.module('p2sAppApp', ['ngCookies', 'ngResource', 'ngSanitize', 'ngAnimate
     url: '/map',
     templateUrl: 'views/map.html',
     controller: 'MapCtrl'
+  }).state('timeline', {
+    url: '/timeline',
+    templateUrl: 'views/timeline.html',
+    controller: 'TimelineCtrl'
   });
   $urlRouterProvider.otherwise('/');
 }).config(['uiGmapGoogleMapApiProvider',

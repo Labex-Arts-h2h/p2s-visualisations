@@ -175,7 +175,7 @@ img[src*="phone"] {
     opacity:1;
 }
 
-
+/*
  @media (min-width: 768px){
   .navbar-nav{
       margin: 0 auto;
@@ -195,7 +195,7 @@ img[src*="phone"] {
     display: block;
     text-align: center;
   }
-}
+}*/
 
 a.navbar-brand {
   color: white;

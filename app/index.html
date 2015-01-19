@@ -41,7 +41,7 @@
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
-    <nav class="navbar navbar-fixed" role="navigation">
+<!--     <nav class="navbar navbar-fixed" role="navigation">
       <div class="container-fluid">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -53,11 +53,55 @@
           <a class="navbar-brand" href="#/">Théâtre sur Seine</a>
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" > 
-        <!-- ng-controller="NavCtrl" -->
+        <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="#map">Map</a></li>
+                <li><a href="#contact">Timeline</a></li>
+              </ul>
+        </div>
+      </div>
+    </nav>  -->
+    <div class="header container">
+      <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container">
+          <!-- Brand and toggle get grouped for better mobile display -->
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Patrimoine du Spectacle</a>
+          </div>
 
-        </div><!-- /.navbar-collapse -->
-      </div><!-- /.container-fluid -->
-    </nav>
+          <!-- Collect the nav links, forms, and other content for toggling -->
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" ng-controller="HeadernavCtrl">
+            <ul class="nav navbar-nav">
+              <li ng-class="{ active: isActive('/')}">
+                <a href="#/">Base</a>
+              </li>
+              <li ng-class="{ active: isActive('/map')}">
+                <a href="#/map">Carte</a>
+              </li>
+              <li ng-class="{ active: isActive('/timeline')}">
+                <a href="#/timeline">Timeline</a>
+              </li>              
+            </ul>
+<!--             <ul class="nav navbar-nav navbar-right">
+              <li ng-class="{ active: isActive('/experiment')}">
+                <a href="#/experiment">Lab</a>
+              </li>
+              <li ng-class="{ active: isActive('/about')}">
+                <a href="#/about">À propos</a>
+              </li>
+            </ul> -->
+          </div>
+        </div>
+      </nav>
+    </div>
+
+
     <div ui-view></div>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
@@ -103,6 +147,8 @@
         <script src="scripts/controllers/navbar.js"></script>
         <script src="scripts/controllers/map.js"></script>
         <script src="scripts/services/api.js"></script>
+        <script src="scripts/controllers/headernav.js"></script>
+        <script src="scripts/controllers/timeline.js"></script>
         <!-- endbuild -->
 </body>
 </html>
